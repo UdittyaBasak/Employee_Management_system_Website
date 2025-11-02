@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Employee Details - Employee Management System</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
+    <style>
+        body {
+            background: #f5f7fa;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        .navbar {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+        
+        .profile-card {
+            background: white;
+            border-radius: 20px;
+            padding: 3rem;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.1);
+            margin-top: 2rem;
+        }
+        
+        .profile-header {
+            text-align: center;
+            padding-bottom: 2rem;
+            border-bottom: 2px solid #e9ecef;
+            margin-bottom: 2rem;
+        }
+        
+        .profile-avatar {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1rem;
+            font-size: 3rem;
+            color: white;
+            box-shadow: 0 10px 30px rgba(102, 126, 234, 0.3);
+        }
+        
+        .info-card {
+            background: #f8f9fa;
+            border-radius: 15px;
+            padding: 1.5rem;
+            margin-bottom: 1rem;
+            border-left: 4px solid #667eea;
+        }
+        
+        .info-label {
+            font-size: 0.875rem;
+            color: #6c757d;
+            text-transform: uppercase;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+            margin-bottom: 0.5rem;
+        }
+        
+        .info-value {
+            font-size: 1.25rem;
+            color: #212529;
+            font-weight: 600;
+        }
+        
+        .badge-large {
+            font-size: 1rem;
+            padding: 0.75rem 1.5rem;
+            border-radius: 30px;
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark">
+        <div class="container-fluid">
+            <a class="navbar-brand fw-bold" href="/dashboard">
+                <i class="bi bi-building me-2"></i>EMS
+            </a>
+            <div class="collapse navbar-collapse">
+                <ul class="navbar-nav me-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="/dashboard">Dashboard</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" href="/employees">Employees</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/departments">Departments</a>
+                    </li>
+                </ul>
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a class="nav-link" href="/logout">Logout</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    
+    <div class="container mt-4 mb-5">
+        <a href="/employees" class="btn btn-secondary mb-3">
+            <i class="bi bi-arrow-left me-2"></i>Back to Employees
+        </a>
+        
+        <div class="profile-card" th:if="${employee}">
+            <div class="profile-header">
+                <div class="profile-avatar">
+                    <i class="bi bi-person"></i>
+                </div>
+                <h2 class="fw-bold mb-2" th:text="${employee.name}">Employee Name</h2>
+                <p class="text-muted mb-0" th:text="${employee.designation}">Designation</p>
+            </div>
+            
+            <div class="row">
+                <div class="col-md-6 mb-3">
+                    <div class="info-card">
+                        <div class="info-label">Employee ID</div>
+                        <div class="info-value" th:text="${employee.empId}">EMP001</div>
+                    </div>
+                </div>
+                <div class="col-md-6 mb-3">
+                    <div class="info-card">
+                        <div class="info-label">Full Name</div>
+                        <div class="info-value" th:text="${employee.name}">John Doe</div>
+                    </div>
+                </div>
+                <div class="col-md-6 mb-3">
+                    <div class="info-card">
+                        <div class="info-label">Department</div>
+                        <div class="info-value">
+                            <span class="badge badge-large bg-primary" th:text="${employee.department}">IT</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 mb-3">
+                    <div class="info-card">
+                        <div class="info-label">Designation</div>
+                        <div class="info-value" th:text="${employee.designation}">Software Engineer</div>
+                    </div>
+                </div>
+                <div class="col-md-12 mb-3">
+                    <div class="info-card">
+                        <div class="info-label">Contact Number</div>
+                        <div class="info-value">
+                            <i class="bi bi-telephone me-2"></i>
+                            <span th:text="${employee.contact}">1234567890</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="text-center mt-4 pt-4 border-top">
+                <a th:href="@{/employees/edit/{id}(id=${employee.empId})}" class="btn btn-warning btn-lg me-2">
+                    <i class="bi bi-pencil me-2"></i>Edit Employee
+                </a>
+                <a href="/employees" class="btn btn-secondary btn-lg">
+                    <i class="bi bi-list me-2"></i>Back to List
+                </a>
+            </div>
+        </div>
+    </div>
+    
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
+
+
