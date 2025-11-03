@@ -256,7 +256,6 @@ This project is compatible with:
 - IntelliJ IDEA
 - Eclipse
 - VSCode (with Java extensions)
-- Cursor IDE
 
 ### Hot Reload
 
